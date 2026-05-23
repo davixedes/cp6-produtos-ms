@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="#{title.produtos}">Produtos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+<div class="max-w-4xl mx-auto p-4">
+
+    <div th:replace="~{fragments.html :: navbar('produtos')}"></div>
+
+    <div class="bg-white p-4 mt-4 shadow-md rounded-md">
+        <main>
+            <h1 class="text-2xl font-bold text-gray-800 mb-4" th:text="#{produto.form.title}">Cadastro de produto</h1>
+            <br>
+            <form th:action="@{/produtos/save}" method="post" th:object="${produto}" class="space-y-4">
+                <div class="flex items-center" th:if="${produto.codigo} != null">
+                    <label for="codigo" class="w-32 text-gray-700" th:text="#{produto.form.codigo}">Codigo</label>
+                    <input id="codigo" type="text" th:field="*{codigo}" readonly
+                           class="w-full border rounded px-2 py-1 bg-gray-100">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="nome" class="w-32 text-gray-700" th:text="#{produto.form.nome}">Nome</label>
+                    <input id="nome" type="text" th:field="*{nome}" th:placeholder="#{produto.form.nome.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-start">
+                    <label for="descricao" class="w-32 text-gray-700" th:text="#{produto.form.descricao}">Descricao</label>
+                    <textarea id="descricao" th:field="*{descricao}"
+                              th:placeholder="#{produto.form.descricao.placeholder}"
+                              class="w-full border rounded px-2 py-1 resize-none" rows="3"></textarea>
+                </div>
+
+                <div class="flex items-center">
+                    <label for="preco" class="w-32 text-gray-700" th:text="#{produto.form.preco}">Preco</label>
+                    <input id="preco" type="number" step="0.01" min="0" th:field="*{preco}"
+                           th:placeholder="#{produto.form.preco.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex items-center">
+                    <label for="categoria" class="w-32 text-gray-700" th:text="#{produto.form.categoria}">Categoria</label>
+                    <input id="categoria" type="text" th:field="*{categoria}"
+                           th:placeholder="#{produto.form.categoria.placeholder}"
+                           class="w-full border rounded px-2 py-1">
+                </div>
+
+                <div class="flex justify-end space-x-2">
+                    <a th:href="@{/produtos}" class="px-4 py-2 bg-gray-300 rounded"
+                       th:text="#{produto.form.cancel}">Cancelar</a>
+                    <button type="submit" class="px-4 py-2 bg-gray-800 text-white rounded"
+                            th:text="#{produto.form.save}">Salvar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+</div>
+</body>
+</html>
